@@ -35,14 +35,9 @@ header = r'''
 
 .. |--| unicode:: U+2013   .. en dash
     :trim:
-
-
 '''
-
 def rst2tex(in_path, out_path):
-
     dir_util.copy_tree(in_path, out_path)
-
     base_dir = os.path.dirname(__file__)
     scipy_status = os.path.join(base_dir, '_static/status.sty')
     shutil.copy(scipy_status, out_path)
@@ -60,7 +55,6 @@ def rst2tex(in_path, out_path):
         import warnings
         warnings.warn(RuntimeWarning('Could not import Pygments. '
                                      'Syntax highlighting will fail.'))
-
     if pygments:
         from pygments.formatters import LatexFormatter
         from writer.sphinx_highlight import SphinxStyle
@@ -74,7 +68,6 @@ def rst2tex(in_path, out_path):
                 'documentoptions': 'letterpaper,compsoc,twoside',
                 'halt_level': 3,  # 2: warn; 3: error; 4: severe
                 }
-
     try:
         rst, = glob.glob(os.path.join(in_path, '*.rst'))
     except ValueError:
@@ -115,8 +108,6 @@ def tex2pdf(out_path):
             # Building succeeded or failed outright
             break
     return out
-
-
 def tex2pdf_singlepass(out_path):
     """
     Returns
@@ -179,10 +170,7 @@ def tex2pdf_singlepass(out_path):
 
     if b"Label(s) may have changed." in out:
         return out, True
-
     return out, False
-
-
 def page_count(pdflatex_stdout, paper_dir):
     """
     Parse pdflatex output for paper count, and store in a .ini file.
@@ -202,9 +190,7 @@ def page_count(pdflatex_stdout, paper_dir):
             pages = m.groups()[0]
             d.update({'pages': int(pages)})
             break
-
     options.dict2cfg(d, cfgname)
-
 
 def build_paper(paper_id):
     out_path = os.path.join(output_dir, paper_id)
@@ -224,6 +210,5 @@ if __name__ == "__main__":
     if not os.path.isdir(in_path):
         print("Cannot open directory: %s" % in_path)
         sys.exit(-1)
-
     paper_id = os.path.basename(in_path)
     build_paper(paper_id)

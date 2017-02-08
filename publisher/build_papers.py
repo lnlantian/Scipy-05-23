@@ -33,8 +33,6 @@ def paper_stats(paper_id, start):
 
     with open(os.path.join(output_dir, paper_id, 'page_numbers.tex'), 'w') as f:
         f.write('\setcounter{page}{%s}' % start)
-
-    # Build table of contents
     stats.update({'page': {'start': start,
                            'stop': stop}})
     stats.update({'paper_id': paper_id})
@@ -49,7 +47,6 @@ if __name__ == "__main__":
     options.mkdir_p(pdf_dir)
     for paper_id in dirs:
         build_paper(paper_id)
-
         stats, start = paper_stats(paper_id, start + 1)
         toc_entries.append(stats)
 
@@ -58,10 +55,8 @@ if __name__ == "__main__":
         src_pdf = os.path.join(output_dir, paper_id, 'paper.pdf')
         dest_pdf = os.path.join(pdf_dir, paper_id+'.pdf')
         shutil.copy(src_pdf, dest_pdf)
-
         command_line = 'cd '+pdf_dir+' ; pdfannotextractor '+paper_id+'.pdf'
         run = subprocess.Popen(command_line, shell=True, stdout=subprocess.PIPE)
         out, err = run.communicate()
-
     toc = {'toc': toc_entries}
     options.dict2cfg(toc, toc_conf)

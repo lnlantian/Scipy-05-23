@@ -2,7 +2,6 @@ import glob
 import os
 
 excludes = ['vanderwalt','bibderwalt']
-
 work_dir      = os.path.dirname(__file__)
 papers_dir    = os.path.join(work_dir,'../papers')
 output_dir    = os.path.join(work_dir,'../output')

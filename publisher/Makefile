@@ -15,7 +15,6 @@ all: clean proceedings
 
 clean:
 	rm -rf $(PAPERDIR)/* $(BUILDDIR)/*
-
 $(TEXDIR):
 	mkdir -p $@
 
@@ -31,7 +30,6 @@ organization-pdf: $(TEXDIR)/organization.pdf
 students-pdf: $(TEXDIR)/students.pdf
 
 front-pdf: title-pdf copyright-pdf organization-pdf students-pdf
-
 papers:
 	./build_papers.py
 
@@ -39,7 +37,6 @@ proceedings: front-pdf papers $(TEXDIR)/proceedings.tex
 	($(TEX2PDF) proceedings 1>/dev/null)
 	($(TEX2PDF) proceedings 1>/dev/null)
 	cp $(TEXDIR)/proceedings.pdf $(PDFDIR)/proceedings.pdf 
-
 proceedings-html: proceedings
 	python build_html.py
 	-convert $(STATIC)/logo.png -resize x100 $(HTMLDIR)/logo.png
